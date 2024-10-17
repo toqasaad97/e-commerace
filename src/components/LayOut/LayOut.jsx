@@ -1,16 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
-// import style from "./Template.module.css"
 export default function LayOut() {
-
   return (
-<>
-<Navbar/>
-
-      <Outlet/>
-
-</>
-
-  )
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
