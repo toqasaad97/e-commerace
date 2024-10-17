@@ -1,8 +1,11 @@
 import { useFormik } from "formik";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { ContextToken } from '../Context/ContextToken';
+import { ContextToken } from "../Context/ContextToken";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { CartContext } from "../Context/CartContext";
 
 const initialValues = {
   email: "",
@@ -10,8 +13,10 @@ const initialValues = {
 };
 
 const Login = () => {
-  const { setToken  } = useContext(ContextToken);
+  const { setToken } = useContext(ContextToken);
+  const {getProducts } = useContext(CartContext);
   const navigate = useNavigate();
+
   async function login(values) {
     try {
       const res = await fetch(
@@ -30,12 +35,44 @@ const Login = () => {
         throw new Error(data.message || "An error occurred during login");
       }
 
+      localStorage.setItem("token", data.token);
       setToken(data.token);
-      navigate("/");
+
+      getProducts();
+      toast.success("Login successful!", {
+        position: "top-center",
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#713200',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Login failed", {
+        position: "top-center",
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#713200',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        }
+      });
     }
   }
+  useEffect(() => {
+    getProducts()
+  }, [])
+
 
   const myForm = useFormik({
     initialValues,
@@ -46,6 +83,7 @@ const Login = () => {
         .required("The email is required"),
       password: yup
         .string()
+        .matches(/^[A-Z][a-z0-9]{5,}$/, "Invalid password")
         .required("The password is required"),
     }),
     onSubmit: (values) => login(values),
@@ -53,15 +91,22 @@ const Login = () => {
 
   return (
     <section className="bg-[#f5e1da] pt-0 lg:pt-10 md:pt-40 ">
+      <ToastContainer />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#2c3e50] py-3 text-center">
           Login to Your Account
         </h3>
         <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <form className="space-y-4 md:space-y-6" onSubmit={myForm.handleSubmit}>
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={myForm.handleSubmit}
+            >
               <div>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-[#2c3e50]">
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-[#2c3e50]"
+                >
                   Your email
                 </label>
                 <input
@@ -76,14 +121,20 @@ const Login = () => {
                   value={myForm.values.email}
                 />
                 {myForm.errors.email && myForm.touched.email ? (
-                  <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 mt-2" role="alert">
+                  <div
+                    className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 mt-2"
+                    role="alert"
+                  >
                     {myForm.errors.email}
                   </div>
                 ) : null}
               </div>
 
               <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-[#2c3e50]">
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-[#2c3e50]"
+                >
                   Password
                 </label>
                 <input
@@ -98,7 +149,10 @@ const Login = () => {
                   value={myForm.values.password}
                 />
                 {myForm.errors.password && myForm.touched.password ? (
-                  <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 mt-2" role="alert">
+                  <div
+                    className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 mt-2"
+                    role="alert"
+                  >
                     {myForm.errors.password}
                   </div>
                 ) : null}
@@ -106,14 +160,26 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="w-full text-white bg-[#f39c12] hover:bg-[#e67e22] focus:ring-4 focus:outline-none focus:ring-[#f39c12] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className="w-full text-white bg-[#f39c12] hover:bg-[#e67e22] focus:ring-4 focus:outline-none focus:ring-[#f39c12] font-medium rounded-lg text-sm px-3 py-2.5 text-center"
               >
                 Login
               </button>
 
               <p className="text-sm font-light text-[#2c3e50]">
-            Do not have account
-                <Link to="/signup" className="font-medium text-[#f39c12] hover:underline">
+                <Link
+                  to="/forgetPassword"
+                  className="font-medium text-[#f39c12] hover:underline"
+                >
+                  forget password?
+                </Link>
+              </p>
+
+              <p className="text-sm font-light text-[#2c3e50]">
+                Do not have account ?
+                <Link
+                  to="/signup"
+                  className="font-medium text-[#f39c12] hover:underline"
+                >
                   Sign up here
                 </Link>
               </p>
