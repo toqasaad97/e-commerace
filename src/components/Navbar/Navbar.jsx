@@ -40,7 +40,7 @@ const Navbar = () => {
               WishList
             </Link>
             <Link
-              to="/Brand"
+              to="/brand"
               className="text-[#2c3e50] text-lg font-serif hover:text-[#f39c12] transition-colors duration-300"
             >
               Brand
