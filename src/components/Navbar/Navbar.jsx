@@ -77,11 +77,12 @@ const Navbar = () => {
         >
           <FontAwesomeIcon icon={faShoppingCart} size="2x" />
         </Link>
+        {/* Log Out button for larger screens only */}
         {token && (
           <Link
             to="/login"
             onClick={handleLogout}
-            className="text-[#2c3e50] ml-4 text-lg font-serif hover:text-[#f39c12] transition-colors duration-300"
+            className="hidden lg:block text-[#2c3e50] ml-4 text-lg font-serif hover:text-[#f39c12] transition-colors duration-300"
           >
             Log Out
           </Link>
@@ -118,14 +119,6 @@ const Navbar = () => {
                 className="text-[#2c3e50] text-lg font-serif hover:text-[#f39c12] transition-colors duration-300"
               >
                 Products
-              </Link>
-
-              <Link
-                to="/login"
-                onClick={handleLogout}
-                className="text-[#2c3e50] text-lg font-serif hover:text-[#f39c12] transition-colors duration-300"
-              >
-                Log Out
               </Link>
             </>
           ) : (

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoaderComponent from "../Loader/Loader";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react"; // Import useState
+import { useContext, useState } from "react";
 import { CartContext } from "../Context/CartContext";
 import { FaHeart } from "react-icons/fa";
 import { WishContext } from "../Context/WishListContext";
@@ -31,7 +31,8 @@ export default function Home() {
         },
       });
     } else {
-      toast.error("Error occurred", {
+  
+      toast.error("Error occurred  ", {
         position: "top-center",
         style: {
           border: "1px solid #713200",
@@ -61,7 +62,7 @@ export default function Home() {
           secondary: "#FFFAEE",
         },
       });
-      setWishlist((prev) => new Set(prev).add(productId)); // Update wishlist state
+      setWishlist((prev) => new Set(prev).add(productId));
     } else {
       toast.error("Error occurred", {
         position: "top-center",
