@@ -1,8 +1,29 @@
-# React + Vite
+# E-Commerce Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a fully responsive e-commerce website built with **React.js** and styled using **Tailwind CSS**. The project includes essential e-commerce features like product listings, a shopping cart, and user authentication.
+[https://e-commerace-neon.vercel.app/]()
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Product Listings**: Browse products with details such as images, prices, and descriptions.
+- **Shopping Cart**: Add, remove, and update items in the cart with real-time updates.
+- **User Authentication**: Sign up, log in, and manage user sessions.
+- **Responsive Design**: Optimized for both desktop and mobile views.
+- **Tailwind CSS**: Custom styling using the **Tailwind CSS** framework for a clean, modern UI.
+- **React Router**: Seamless navigation between pages like Home, Product Detail, and Cart.
+- **State Management**: Use of React's **useState** and **useEffect** for state management across components.
+
+## Technologies Used
+
+- **Frontend**:  
+  - React.js  
+  - Tailwind CSS  
+  - React Router
+  - formik
+  
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/toqasaad97/e-commerace.git
