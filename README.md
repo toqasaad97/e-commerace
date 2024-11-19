@@ -27,3 +27,18 @@ This is a fully responsive e-commerce website built with **React.js** and styled
 1. Clone the repository:
    ```bash
    git clone https://github.com/toqasaad97/e-commerace.git
+
+
+###2. Change to the project directory:
+
+```bash
+cd e-commerace
+```
+###3. Install the necessary dependencies:
+
+```bash
+npm install
+```
+###4. Run the development server:
+```bash
+npm run dev
